@@ -1,0 +1,242 @@
+version: 2
+
+models:
+  - name: categories
+    description: "Contains categories of products."
+    columns:
+      - name: category_id
+        description: "Unique identifier for the category."
+      - name: category_name
+        description: "Name of the category."
+      - name: description
+        description: "Description of the category."
+      - name: picture
+        description: "Category picture."
+
+  - name: customer_customer_demo
+    description: "Maps customers to customer demographics."
+    columns:
+      - name: customer_id
+        description: "Identifier of the customer."
+      - name: customer_type_id
+        description: "Identifier of the customer demographic."
+
+  - name: customer_demographics
+    description: "Contains demographic descriptions for customer types."
+    columns:
+      - name: customer_type_id
+        description: "Identifier of the customer type."
+      - name: customer_desc
+        description: "Description of the customer demographic."
+
+  - name: customers
+    description: "Details of customers."
+    columns:
+      - name: customer_id
+        description: "Unique identifier for the customer."
+      - name: company_name
+        description: "Name of the company."
+      - name: contact_name
+        description: "Name of the primary contact."
+      - name: contact_title
+        description: "Title of the primary contact."
+      - name: address
+        description: "Address of the customer."
+      - name: city
+        description: "City of the customer."
+      - name: region
+        description: "Region of the customer."
+      - name: postal_code
+        description: "Postal code of the customer."
+      - name: country
+        description: "Country of the customer."
+      - name: phone
+        description: "Phone number of the customer."
+      - name: fax
+        description: "Fax number of the customer."
+
+  - name: employees
+    description: "Details of employees."
+    columns:
+      - name: employee_id
+        description: "Unique identifier for the employee."
+      - name: last_name
+        description: "Last name of the employee."
+      - name: first_name
+        description: "First name of the employee."
+      - name: title
+        description: "Job title of the employee."
+      - name: title_of_courtesy
+        description: "Courtesy title of the employee."
+      - name: birth_date
+        description: "Birthdate of the employee."
+      - name: hire_date
+        description: "Hire date of the employee."
+      - name: address
+        description: "Address of the employee."
+      - name: city
+        description: "City of the employee."
+      - name: region
+        description: "Region of the employee."
+      - name: postal_code
+        description: "Postal code of the employee."
+      - name: country
+        description: "Country of the employee."
+      - name: home_phone
+        description: "Home phone number of the employee."
+      - name: extension
+        description: "Phone extension of the employee."
+      - name: photo
+        description: "Photo of the employee."
+      - name: notes
+        description: "Additional notes about the employee."
+      - name: reports_to
+        description: "Manager of the employee."
+      - name: photo_path
+        description: "Path to the employee's photo."
+
+  - name: employee_territories
+    description: "Mapping of employees to territories."
+    columns:
+      - name: employee_id
+        description: "Unique identifier for the employee."
+      - name: territory_id
+        description: "Identifier of the territory."
+
+  - name: order_details
+    description: "Details of orders."
+    columns:
+      - name: order_id
+        description: "Unique identifier for the order."
+      - name: product_id
+        description: "Identifier of the product."
+      - name: unit_price
+        description: "Price per unit of the product."
+      - name: quantity
+        description: "Quantity of the product ordered."
+      - name: discount
+        description: "Discount applied to the order."
+
+  - name: orders
+    description: "Contains orders placed by customers."
+    columns:
+      - name: order_id
+        description: "Unique identifier for the order."
+      - name: customer_id
+        description: "Identifier of the customer who placed the order."
+      - name: employee_id
+        description: "Identifier of the employee handling the order."
+      - name: order_date
+        description: "Date the order was placed."
+      - name: required_date
+        description: "Date the order is required."
+      - name: shipped_date
+        description: "Date the order was shipped."
+      - name: ship_via
+        description: "Shipping method."
+      - name: freight
+        description: "Freight cost."
+      - name: ship_name
+        description: "Name of the shipper."
+      - name: ship_address
+        description: "Shipping address."
+      - name: ship_city
+        description: "Shipping city."
+      - name: ship_region
+        description: "Shipping region."
+      - name: ship_postal_code
+        description: "Shipping postal code."
+      - name: ship_country
+        description: "Shipping country."
+
+  - name: products
+    description: "Details of products."
+    columns:
+      - name: product_id
+        description: "Unique identifier for the product."
+      - name: product_name
+        description: "Name of the product."
+      - name: supplier_id
+        description: "Identifier of the supplier."
+      - name: category_id
+        description: "Identifier of the product category."
+      - name: quantity_per_unit
+        description: "Quantity per unit of the product."
+      - name: unit_price
+        description: "Price per unit of the product."
+      - name: units_in_stock
+        description: "Quantity of units in stock."
+      - name: units_on_order
+        description: "Quantity of units on order."
+      - name: reorder_level
+        description: "Reorder level for the product."
+      - name: discontinued
+        description: "Indicates if the product is discontinued."
+
+  - name: region
+    description: "Regions where the company operates."
+    columns:
+      - name: region_id
+        description: "Unique identifier for the region."
+      - name: region_description
+        description: "Description of the region."
+
+  - name: shippers
+    description: "Details of shippers."
+    columns:
+      - name: shipper_id
+        description: "Unique identifier for the shipper."
+      - name: company_name
+        description: "Name of the shipping company."
+      - name: phone
+        description: "Phone number of the shipper."
+
+  - name: suppliers
+    description: "Details of suppliers."
+    columns:
+      - name: supplier_id
+        description: "Unique identifier for the supplier."
+      - name: company_name
+        description: "Name of the supplier company."
+      - name: contact_name
+        description: "Name of the supplier's contact."
+      - name: contact_title
+        description: "Title of the supplier's contact."
+      - name: address
+        description: "Supplier's address."
+      - name: city
+        description: "Supplier's city."
+      - name: region
+        description: "Supplier's region."
+      - name: postal_code
+        description: "Supplier's postal code."
+      - name: country
+        description: "Supplier's country."
+      - name: phone
+        description: "Supplier's phone number."
+      - name: fax
+        description: "Supplier's fax number."
+      - name: homepage
+        description: "Supplier's homepage."
+
+  - name: territories
+    description: "Details of territories."
+    columns:
+      - name: territory_id
+        description: "Unique identifier for the territory."
+      - name: territory_description
+        description: "Description of the territory."
+      - name: region_id
+        description: "Identifier of the region."
+
+  - name: us_states
+    description: "Details of US states."
+    columns:
+      - name: state_id
+        description: "Unique identifier for the state."
+      - name: state_name
+        description: "Name of the state."
+      - name: state_abbr
+        description: "Abbreviation of the state."
+      - name: state_region
+        description: "Region where the state is located."
