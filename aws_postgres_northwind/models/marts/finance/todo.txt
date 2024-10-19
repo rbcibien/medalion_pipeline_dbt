@@ -1,0 +1,2 @@
+Criar as views descritas nesse repositório:
+    https://github.com/lvgalvao/Northwind-SQL-Analytics
