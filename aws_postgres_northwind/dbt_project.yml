@@ -6,7 +6,7 @@ name: 'aws_postgres_northwind'
 version: '1.0.0'
 
 # This setting configures which "profile" dbt uses for this project.
-profile: 'aws_postgres_northwind'
+profile: 'northwind_dw'
 
 # These configurations specify where dbt should look for different types of files.
 # The `model-paths` config, for example, states that models in this project can be
@@ -31,17 +31,16 @@ clean-targets:         # directories to be removed by `dbt clean`
 # files using the `{{ config(...) }}` macro.
 models:
   aws_postgres_northwind:
-    # Config indicated by + and applies to all files under models/example/
     staging:
-      materialized: view
+      +materialized: materialized_view
       +docs:
-        node_color: "#cd7f32"   # Cor bronze para a camada raw
+        node_color: "#cd7f32"   # Bronze for raw
     intermediate:
-      materialized: view
+      +materialized: materialized_view
       +docs:
-        node_color: "#c0c0c0"   # Cor prata para a camada staging
+        node_color: "#c0c0c0"   # Silver for staging
     mart:
-      +schema: "gold"           # Define o schema "gold" para as tabelas report_
-      materialized: table
+      +schema: gold           # Set schema to "gold"
+      +materialized: table      # Enforce table materialization here
       +docs:
-        node_color: "#e6b530"   # Cor ouro para a camada reports
+        node_color: "#e6b530"   # Gold for reports

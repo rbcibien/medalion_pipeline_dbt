@@ -1,35 +1,7 @@
 version: 2
 
 models:
-  - name: categories
-    description: "Contains categories of products."
-    columns:
-      - name: category_id
-        description: "Unique identifier for the category."
-      - name: category_name
-        description: "Name of the category."
-      - name: description
-        description: "Description of the category."
-      - name: picture
-        description: "Category picture."
-
-  - name: customer_customer_demo
-    description: "Maps customers to customer demographics."
-    columns:
-      - name: customer_id
-        description: "Identifier of the customer."
-      - name: customer_type_id
-        description: "Identifier of the customer demographic."
-
-  - name: customer_demographics
-    description: "Contains demographic descriptions for customer types."
-    columns:
-      - name: customer_type_id
-        description: "Identifier of the customer type."
-      - name: customer_desc
-        description: "Description of the customer demographic."
-
-  - name: customers
+  - name: bronze_customers
     description: "Details of customers."
     columns:
       - name: customer_id
@@ -55,55 +27,7 @@ models:
       - name: fax
         description: "Fax number of the customer."
 
-  - name: employees
-    description: "Details of employees."
-    columns:
-      - name: employee_id
-        description: "Unique identifier for the employee."
-      - name: last_name
-        description: "Last name of the employee."
-      - name: first_name
-        description: "First name of the employee."
-      - name: title
-        description: "Job title of the employee."
-      - name: title_of_courtesy
-        description: "Courtesy title of the employee."
-      - name: birth_date
-        description: "Birthdate of the employee."
-      - name: hire_date
-        description: "Hire date of the employee."
-      - name: address
-        description: "Address of the employee."
-      - name: city
-        description: "City of the employee."
-      - name: region
-        description: "Region of the employee."
-      - name: postal_code
-        description: "Postal code of the employee."
-      - name: country
-        description: "Country of the employee."
-      - name: home_phone
-        description: "Home phone number of the employee."
-      - name: extension
-        description: "Phone extension of the employee."
-      - name: photo
-        description: "Photo of the employee."
-      - name: notes
-        description: "Additional notes about the employee."
-      - name: reports_to
-        description: "Manager of the employee."
-      - name: photo_path
-        description: "Path to the employee's photo."
-
-  - name: employee_territories
-    description: "Mapping of employees to territories."
-    columns:
-      - name: employee_id
-        description: "Unique identifier for the employee."
-      - name: territory_id
-        description: "Identifier of the territory."
-
-  - name: order_details
+  - name: bronze_order_details
     description: "Details of orders."
     columns:
       - name: order_id
@@ -117,7 +41,7 @@ models:
       - name: discount
         description: "Discount applied to the order."
 
-  - name: orders
+  - name: bronze_orders
     description: "Contains orders placed by customers."
     columns:
       - name: order_id
@@ -149,7 +73,7 @@ models:
       - name: ship_country
         description: "Shipping country."
 
-  - name: products
+  - name: bronze_products
     description: "Details of products."
     columns:
       - name: product_id
@@ -173,70 +97,64 @@ models:
       - name: discontinued
         description: "Indicates if the product is discontinued."
 
-  - name: region
-    description: "Regions where the company operates."
+  - name: silver_orders  # Nome do modelo
+    description: "Tabela de pedidos do estágio"  # Descrição do modelo
     columns:
-      - name: region_id
-        description: "Unique identifier for the region."
-      - name: region_description
-        description: "Description of the region."
+      - name: order_id  # Nome da coluna
+        description: "ID único do pedido"  # Descrição da coluna
+        tests:
+          - not_null  # Teste para garantir que a coluna não tenha valores nulos
+          - unique  # Teste para garantir que os valores na coluna sejam únicos
+      - name: customer_id  # Nome da coluna
+        description: "ID do cliente que fez o pedido"  # Descrição da coluna
+        tests:
+          - not_null  # Teste para garantir que a coluna não tenha valores nulos
+          - relationships:  # Teste para garantir a integridade referencial
+              to: ref('silver_customers')  # Referência ao modelo relacionado
+              field: customer_id  # Campo da coluna relacionada
 
-  - name: shippers
-    description: "Details of shippers."
+  - name: silver_order_details  # Nome do modelo
+    description: "Tabela de detalhes dos pedidos"  # Descrição do modelo
     columns:
-      - name: shipper_id
-        description: "Unique identifier for the shipper."
-      - name: company_name
-        description: "Name of the shipping company."
-      - name: phone
-        description: "Phone number of the shipper."
+      - name: order_id  # Nome da coluna
+        description: "ID do pedido"  # Descrição da coluna
+        tests:
+          - not_null  # Teste para garantir que a coluna não tenha valores nulos
+      - name: product_id  # Nome da coluna
+        description: "ID do produto"  # Descrição da coluna
+        tests:
+          - not_null  # Teste para garantir que a coluna não tenha valores nulos
+      - name: unit_price  # Nome da coluna
+        description: "Preço unitário"  # Descrição da coluna
+        tests:
+          - not_null  # Teste para garantir que a coluna não tenha valores nulos
+      - name: quantity  # Nome da coluna
+        description: "Quantidade"  # Descrição da coluna
+        tests:
+          - not_null  # Teste para garantir que a coluna não tenha valores nulos
 
-  - name: suppliers
-    description: "Details of suppliers."
+  - name: silver_customers  # Nome do modelo
+    description: "View de clientes em stg"  # Descrição do modelo
+    tags: ['untagged']  # Etiquetas para categorizar o modelo
+    meta:  # Metadados adicionais
+      owner: postgres  # Proprietário do modelo
+      type: view  # Tipo do modelo (tabela ou view)
+      package: northwind  # Pacote ao qual o modelo pertence
+      qualquer_coisa: teste  # Pacote ao qual o modelo pertence
+      language: sql  # Linguagem usada para definir o modelo
+      relation: postgres.public.raw_customers  # Relação específica no banco de dados
+      access: protected  # Nível de acesso ao modelo
+      version: '1.0'  # Versão do modelo
+      contract: Enforced  # Especifica que o contrato de schema é aplicado
     columns:
-      - name: supplier_id
-        description: "Unique identifier for the supplier."
-      - name: company_name
-        description: "Name of the supplier company."
-      - name: contact_name
-        description: "Name of the supplier's contact."
-      - name: contact_title
-        description: "Title of the supplier's contact."
-      - name: address
-        description: "Supplier's address."
-      - name: city
-        description: "Supplier's city."
-      - name: region
-        description: "Supplier's region."
-      - name: postal_code
-        description: "Supplier's postal code."
-      - name: country
-        description: "Supplier's country."
-      - name: phone
-        description: "Supplier's phone number."
-      - name: fax
-        description: "Supplier's fax number."
-      - name: homepage
-        description: "Supplier's homepage."
-
-  - name: territories
-    description: "Details of territories."
-    columns:
-      - name: territory_id
-        description: "Unique identifier for the territory."
-      - name: territory_description
-        description: "Description of the territory."
-      - name: region_id
-        description: "Identifier of the region."
-
-  - name: us_states
-    description: "Details of US states."
-    columns:
-      - name: state_id
-        description: "Unique identifier for the state."
-      - name: state_name
-        description: "Name of the state."
-      - name: state_abbr
-        description: "Abbreviation of the state."
-      - name: state_region
-        description: "Region where the state is located."
+      - name: customer_id  # Nome da coluna
+        description: "ID único do cliente"  # Descrição da coluna
+        type: integer  # Tipo de dado esperado para a coluna
+        tests:
+          - not_null  # Teste para garantir que a coluna não tenha valores nulos
+          - unique  # Teste para garantir que os valores na coluna sejam únicos
+      - name: company_name  # Nome da coluna
+        description: "Nome da empresa"  # Descrição da coluna
+        data_type: varchar  # Tipo de dado esperado para a coluna
+        tests:
+          - not_null  # Teste para garantir que a coluna não tenha valores nulos

@@ -1,0 +1,122 @@
+version: 2
+
+models:
+  - name: int_finance__customers
+    columns:
+      - name: customer_id
+        tests:
+          - not_null
+          - unique
+      - name: company_name
+        tests:
+          - not_null
+      - name: contact_name
+        tests:
+          - not_null
+      - name: contact_title
+        tests:
+          - not_null
+      - name: address
+        tests:
+          - not_null
+      - name: city
+        tests:
+          - not_null
+      - name: region
+      - name: postal_code
+      - name: country
+        tests:
+          - not_null
+      - name: phone
+        tests:
+          - not_null
+      - name: fax
+  - name: int_finance__order_details
+    columns:
+      - name: order_id
+        tests:
+          - not_null
+      - name: product_id
+        tests:
+          - not_null
+      - name: unit_price
+        tests:
+          - not_null
+      - name: quantity
+        tests:
+          - not_null
+      - name: discount
+        tests:
+          - not_null
+  - name: int_finance__orders
+    columns:
+      - name: order_id
+        tests:
+          - not_null
+          - unique
+      - name: customer_id
+        tests:
+          - not_null
+      - name: employee_id
+        tests:
+          - not_null
+      - name: order_date
+        tests:
+          - not_null
+      - name: required_date
+        tests:
+          - not_null
+      - name: shipped_date
+      - name: ship_via
+        tests:
+          - not_null
+      - name: freight
+        tests:
+          - not_null
+      - name: ship_name
+        tests:
+          - not_null
+      - name: ship_address
+        tests:
+          - not_null
+      - name: ship_city
+        tests:
+          - not_null
+      - name: ship_region
+      - name: ship_postal_code
+      - name: ship_country
+        tests:
+          - not_null
+  - name: int_finance__products
+    columns:
+      - name: product_id
+        tests:
+          - not_null
+          - unique
+      - name: product_name
+        tests:
+          - not_null
+      - name: supplier_id
+        tests:
+          - not_null
+      - name: category_id
+        tests:
+          - not_null
+      - name: quantity_per_unit
+        tests:
+          - not_null
+      - name: unit_price
+        tests:
+          - not_null
+      - name: units_in_stock
+        tests:
+          - not_null
+      - name: units_on_order
+        tests:
+          - not_null
+      - name: reorder_level
+        tests:
+          - not_null
+      - name: discontinued
+        tests:
+          - not_null

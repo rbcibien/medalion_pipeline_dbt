@@ -1,0 +1,9 @@
+version: 2
+
+models:
+  - name: sales_accumulated_monthly
+    columns:
+      - name: sales_month
+      - name: sales_year
+      - name: sales
+      - name: sales_accumulated

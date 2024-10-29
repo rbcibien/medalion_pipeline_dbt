@@ -1,3 +1,5 @@
+{{ config(materialized='table', schema='gold') }}
+
 WITH sales_accumulated_monthly_mv AS (
     SELECT
         EXTRACT(YEAR FROM o.order_date) AS year,
